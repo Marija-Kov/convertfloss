@@ -50,7 +50,7 @@
         );
       }
 
-      arrayColors.forEach((e) => createElementLIs(e, flossTable));
+      arrayColors.forEach((e) => createElementLIs(e));
     } catch (erro) {
       console.log(erro);
       return [];
@@ -90,7 +90,7 @@
     container.appendChild(trNode);
   }
 
-  function createElementLIs(elem, container) {
+  function createElementLIs(elem) {
     let ulNode = document.createElement("tr");
     ulNode.classList.add("floss-id-" + elem.id);
 
@@ -117,7 +117,7 @@
         : (td.textContent = elem[brand]);
       ulNode.appendChild(td);
     }
-    container.appendChild(ulNode);
+    flossTable.appendChild(ulNode);
   }
 
 
