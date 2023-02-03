@@ -2,11 +2,15 @@
   const url = "https://devfel.github.io/convertfloss/data/flosscolor.json";
   //const url = "../data/flosscolor.json"; //Local Data
   const table = ".floss-table";
+  const form = document.querySelector('form');
   const flossTable = document.querySelector(table);
   let arrayColors = [];
   let searchTerm = null;
   let searchColumn = "name";
 
+  form.addEventListener('submit', (e) => {
+    e.preventDefault()
+  })
 
   init();
 
