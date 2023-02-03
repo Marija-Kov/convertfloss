@@ -2,11 +2,11 @@
   const url = "https://devfel.github.io/convertfloss/data/flosscolor.json";
   //const url = "../data/flosscolor.json"; //Local Data
 
-  const table = ".floss-table";
   const form = document.querySelector('form');
-  const flossTable = document.querySelector(table);
+  const flossTable = document.querySelector(".floss-table");
   const searchBtn = document.querySelector('.search');
   const showAllBtn = document.querySelector(".show-all");
+  const searchInput = document.querySelector('#searchInput')
 
   let arrayColors = [];
   let searchTerm = null;
@@ -15,7 +15,9 @@
   form.addEventListener('submit', (e) => {
     e.preventDefault()
   })
-
+  searchInput.addEventListener('input', ()=> {
+    filterData()
+  })
   searchBtn.addEventListener('click', filterData);
   showAllBtn.addEventListener('click', fetchColors)
 
@@ -30,9 +32,9 @@
     try {
       const colorsRespose = await fetch(url);
       const colorsJSON = await colorsRespose.json();
-      createTableTitles(flossTable);
+      createTableTitles();
       arrayColors = colorsJSON.map((floss) => floss);
-      arrayColors.forEach((e) => createElementLIs(e, flossTable));
+      arrayColors.forEach((e) => createElementLIs(e));
     } catch (erro) {
       console.log(erro);
       return [];
@@ -44,7 +46,7 @@
     try {
       const colorsRespose = await fetch(url);
       const colorsJSON = await colorsRespose.json();
-      createTableTitles(flossTable);
+      createTableTitles();
       let searchTerm = document.getElementById("searchInput").value;
       let searchColumn = document.getElementById("ColumnValue").value;
       if (searchColumn === "name" || searchColumn === "rgb") {
@@ -52,8 +54,8 @@
           floss[searchColumn].includes(searchTerm.toLowerCase())
         );
       } else {
-        arrayColors = colorsJSON.filter(
-          (floss) => floss[searchColumn] === searchTerm.toLowerCase()
+        arrayColors = colorsJSON.filter((floss) =>
+          floss[searchColumn].match(new RegExp(`^${searchTerm.toLowerCase()}`))
         );
       }
 
@@ -69,7 +71,7 @@
     cleanTable.innerHTML = "";
   }
 
-  function createTableTitles(container) {
+  function createTableTitles() {
     let trNode = document.createElement("tr");
     trNode.classList.add("table-title");
 
@@ -94,7 +96,7 @@
       trNode.appendChild(node);
     }
 
-    container.appendChild(trNode);
+    flossTable.appendChild(trNode);
   }
 
   function createElementLIs(elem) {
