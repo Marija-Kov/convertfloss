@@ -7,10 +7,10 @@
   const searchBtn = document.querySelector('.search');
   const showAllBtn = document.querySelector(".show-all");
   const searchInput = document.querySelector('#searchInput')
+  const searchOptions = document.getElementById("ColumnValue");
 
   let arrayColors = [];
   let searchTerm = null;
-  let searchColumn = "name";
 
   form.addEventListener('submit', (e) => {
     e.preventDefault()
@@ -47,15 +47,15 @@
       const colorsRespose = await fetch(url);
       const colorsJSON = await colorsRespose.json();
       createTableTitles();
-      let searchTerm = document.getElementById("searchInput").value;
-      let searchColumn = document.getElementById("ColumnValue").value;
-      if (searchColumn === "name" || searchColumn === "rgb") {
+      let searchTerm = searchInput.value;
+      let searchOption = searchOptions.value;
+      if (searchOption === "name" || searchOption === "rgb") {
         arrayColors = colorsJSON.filter((floss) =>
-          floss[searchColumn].includes(searchTerm.toLowerCase())
+          floss[searchOption].includes(searchTerm.toLowerCase())
         );
       } else {
         arrayColors = colorsJSON.filter((floss) =>
-          floss[searchColumn].match(new RegExp(`^${searchTerm.toLowerCase()}`))
+          floss[searchOption].match(new RegExp(`^${searchTerm.toLowerCase()}`))
         );
       }
 
