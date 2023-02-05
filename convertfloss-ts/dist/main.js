@@ -28,12 +28,12 @@ showAllBtn.addEventListener('click', fetchColors);
 fetchColors();
 function fetchColors() {
     return __awaiter(this, void 0, void 0, function* () {
-        cleanTable();
+        clearTable();
         try {
-            const response = yield fetch(url);
+            const response = yield fetch(url); // maybe store this so you don't have to fetch with every filterData()
             const json = yield response.json();
-            createTableTitles();
-            json.forEach((floss) => createElementLIs(floss));
+            createTitlesTRow();
+            json.forEach((floss) => createTRowsFromSearchRes(floss));
         }
         catch (err) {
             console.log(err);
@@ -43,20 +43,20 @@ function fetchColors() {
 }
 function filterData() {
     return __awaiter(this, void 0, void 0, function* () {
-        cleanTable();
+        clearTable();
         try {
             const response = yield fetch(url);
             const json = yield response.json();
-            createTableTitles();
+            createTitlesTRow();
             let searchTerm = searchInput.value;
             let searchOption = searchOptions.value;
             if (searchOption === "name" || searchOption === "rgb") {
                 json.filter((floss) => floss[searchOption].includes(searchTerm.toLowerCase()))
-                    .map((floss) => createElementLIs(floss));
+                    .map((floss) => createTRowsFromSearchRes(floss));
             }
             else {
                 json.filter((floss) => floss[searchOption].match(new RegExp(`^${searchTerm.toLowerCase()}`)))
-                    .map((floss) => createElementLIs(floss));
+                    .map((floss) => createTRowsFromSearchRes(floss));
             }
         }
         catch (err) {
@@ -65,10 +65,10 @@ function filterData() {
         }
     });
 }
-function cleanTable() {
+function clearTable() {
     flossTable.innerHTML = "";
 }
-function createTableTitles() {
+function createTitlesTRow() {
     let trNode = document.createElement("tr");
     trNode.classList.add("table-title");
     const titles = [
@@ -82,18 +82,18 @@ function createTableTitles() {
         "J&P Coats",
     ];
     titles.map((title) => {
-        createTitle(title);
+        createTitleCell(title);
     });
-    function createTitle(title) {
+    function createTitleCell(title) {
         let node = document.createElement("td");
         node.textContent = title;
         trNode.appendChild(node);
     }
     flossTable.appendChild(trNode);
 }
-function createElementLIs(floss) {
+function createTRowsFromSearchRes(floss) {
     let ulNode = document.createElement("tr");
-    ulNode.classList.add("floss-id-" + floss.id);
+    ulNode.classList.add(`floss-id-${floss.id}`);
     const cols = [
         "sample",
         "name",
@@ -105,9 +105,9 @@ function createElementLIs(floss) {
         "coats",
     ];
     cols.map((col) => {
-        createListForBrand(col);
+        createTDataCells(col);
     });
-    function createListForBrand(brand) {
+    function createTDataCells(brand) {
         let td = document.createElement("td");
         //td.classList.add(brand);
         brand === "sample"

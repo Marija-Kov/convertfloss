@@ -1,5 +1,9 @@
  export {} // Why does this fix error: Duplicate Function Implementation ?
 
+// Types of values that floss object will contain
+interface Floss {
+  [key: string] : string
+}
   
   const url = "https://devfel.github.io/convertfloss/data/flosscolor.json";
   //const url = "../data/flosscolor.json"; //Local Data
@@ -23,12 +27,12 @@
   fetchColors();
 
   async function fetchColors() {
-    cleanTable();
+    clearTable();
     try {
-      const response = await fetch(url);
+      const response = await fetch(url); // maybe store this so you don't have to fetch with every filterData()
       const json = await response.json();
-      createTableTitles();
-      json.forEach((floss) => createElementLIs(floss));
+      createTitlesTRow();
+      json.forEach((floss : Floss) => createTRowsFromSearchRes(floss));
     } catch (err) {
       console.log(err);
       return [];
@@ -36,19 +40,19 @@
   }
 
   async function filterData() {
-    cleanTable();
+    clearTable();
     try {
       const response = await fetch(url);
       const json = await response.json();
-      createTableTitles();
-      let searchTerm = searchInput.value;
-      let searchOption = searchOptions.value;
+      createTitlesTRow();
+      let searchTerm : string = searchInput.value;
+      let searchOption : string = searchOptions.value;
        if (searchOption === "name" || searchOption === "rgb") {
-       json.filter((floss) =>floss[searchOption].includes(searchTerm.toLowerCase()))
-           .map((floss) => createElementLIs(floss))
+         json.filter((floss : Floss) => floss[searchOption].includes(searchTerm.toLowerCase()))
+             .map((floss : Floss) => createTRowsFromSearchRes(floss))
        } else {
-         json.filter((floss) =>floss[searchOption].match(new RegExp(`^${searchTerm.toLowerCase()}`)) )
-             .map((floss) => createElementLIs(floss))
+         json.filter((floss : Floss) => floss[searchOption].match(new RegExp(`^${searchTerm.toLowerCase()}`)) )
+             .map((floss: Floss) => createTRowsFromSearchRes(floss))
       }
     } catch (err) {
        console.log(err);
@@ -56,11 +60,11 @@
     }
   }
 
-  function cleanTable() {
+  function clearTable() {
     flossTable.innerHTML = "";
   }
 
-  function createTableTitles() {
+  function createTitlesTRow() {
     let trNode = document.createElement("tr");
     trNode.classList.add("table-title");
 
@@ -75,11 +79,11 @@
       "J&P Coats",
     ];
 
-    titles.map((title) => {
-      createTitle(title);
+    titles.map((title : string) => {
+      createTitleCell(title);
     });
 
-    function createTitle(title:string) {
+    function createTitleCell(title:string) {
       let node = document.createElement("td");
       node.textContent = title;
       trNode.appendChild(node);
@@ -88,9 +92,9 @@
     flossTable.appendChild(trNode);
   }
 
-  function createElementLIs(floss) {
+  function createTRowsFromSearchRes(floss : Floss) {
     let ulNode = document.createElement("tr");
-    ulNode.classList.add("floss-id-" + floss.id);
+    ulNode.classList.add(`floss-id-${floss.id}`);
 
     const cols = [
       "sample",
@@ -104,10 +108,10 @@
     ];
 
     cols.map((col) => {
-      createListForBrand(col);
+      createTDataCells(col);
     });
 
-    function createListForBrand(brand:string) {
+    function createTDataCells(brand: string) {
       let td = document.createElement("td");
       //td.classList.add(brand);
       brand === "sample"
