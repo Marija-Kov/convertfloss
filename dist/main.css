@@ -16,6 +16,10 @@ header {
   margin: 0 auto;
 }
 
+option, select {
+  cursor: pointer
+}
+
 .commands {
   display: flex;
   flex-direction: column;
