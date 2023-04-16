@@ -70,6 +70,10 @@ h1 {
   max-width: 1080px;
 }
 
+.no-floss-found {
+  text-align: center;
+}
+
 td {
   padding: 2px 8px;
   text-align: center;

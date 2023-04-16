@@ -50,15 +50,18 @@ function filterData() {
             createTitlesTRow();
             let searchTerm = searchInput.value;
             let searchOption = searchOptions.value;
+            let result;
             if (searchOption === "name" || searchOption === "rgb") {
                 const regExp = new RegExp(`${searchTerm.toLowerCase()}`);
-                json.filter((floss) => floss[searchOption].match(regExp))
+                result = json.filter((floss) => floss[searchOption].match(regExp))
                     .map((floss) => createTRowsFromSearchRes(floss));
             }
             else {
-                json.filter((floss) => floss[searchOption].match(new RegExp(`^${searchTerm.toLowerCase()}`)))
+                result = json.filter((floss) => floss[searchOption].match(new RegExp(`^${searchTerm.toLowerCase()}`)))
                     .map((floss) => createTRowsFromSearchRes(floss));
             }
+            if (result.length === 0)
+                flossTable.innerHTML = `<p class='no-floss-found'>No flosses found by your query.</p>`;
         }
         catch (err) {
             console.log(err);
