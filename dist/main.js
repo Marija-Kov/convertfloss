@@ -51,7 +51,8 @@ function filterData() {
             let searchTerm = searchInput.value;
             let searchOption = searchOptions.value;
             if (searchOption === "name" || searchOption === "rgb") {
-                json.filter((floss) => floss[searchOption].includes(searchTerm.toLowerCase()))
+                const regExp = new RegExp(`${searchTerm.toLowerCase()}`);
+                json.filter((floss) => floss[searchOption].match(regExp))
                     .map((floss) => createTRowsFromSearchRes(floss));
             }
             else {

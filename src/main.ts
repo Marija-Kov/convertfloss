@@ -48,7 +48,8 @@ interface Floss {
       let searchTerm : string = searchInput.value;
       let searchOption : string = searchOptions.value;
        if (searchOption === "name" || searchOption === "rgb") {
-         json.filter((floss : Floss) => floss[searchOption].includes(searchTerm.toLowerCase()))
+        const regExp = new RegExp(`${searchTerm.toLowerCase()}`)
+         json.filter((floss : Floss) => floss[searchOption].match(regExp))
              .map((floss : Floss) => createTRowsFromSearchRes(floss))
        } else {
          json.filter((floss : Floss) => floss[searchOption].match(new RegExp(`^${searchTerm.toLowerCase()}`)) )
