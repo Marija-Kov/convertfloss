@@ -34,6 +34,8 @@ function fetchColors() {
             const json = yield response.json();
             createTitlesTRow();
             json.forEach((floss) => createTRowsFromSearchRes(floss));
+            searchInput.value = "";
+            searchOptions.value = "name";
         }
         catch (err) {
             console.log(err);

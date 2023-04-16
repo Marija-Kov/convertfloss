@@ -33,6 +33,8 @@ interface Floss {
       const json = await response.json();
       createTitlesTRow();
       json.forEach((floss : Floss) => createTRowsFromSearchRes(floss));
+      searchInput.value = "";
+      searchOptions.value = "name";
     } catch (err) {
       console.log(err);
       return [];
