@@ -81,6 +81,7 @@ function createTitlesTRow() {
         "Maxi Mouline",
         "Sullivans",
         "J&P Coats",
+        "Ljubica"
     ];
     titles.map((title) => {
         createTitleCell(title);
@@ -104,6 +105,7 @@ function createTRowsFromSearchRes(floss) {
         "maxi",
         "sullivans",
         "coats",
+        "ljubica"
     ];
     cols.map((col) => {
         createTDataCells(col);

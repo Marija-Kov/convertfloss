@@ -78,6 +78,7 @@ interface Floss {
       "Maxi Mouline",
       "Sullivans",
       "J&P Coats",
+      "Ljubica"
     ];
 
     titles.map((title : string) => {
@@ -106,6 +107,7 @@ interface Floss {
       "maxi",
       "sullivans",
       "coats",
+      "ljubica"
     ];
 
     cols.map((col) => {
