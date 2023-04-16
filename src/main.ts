@@ -33,6 +33,8 @@ interface Floss {
       const json = await response.json();
       createTitlesTRow();
       json.forEach((floss : Floss) => createTRowsFromSearchRes(floss));
+      searchInput.value = "";
+      searchOptions.value = "name";
     } catch (err) {
       console.log(err);
       return [];
@@ -47,14 +49,16 @@ interface Floss {
       createTitlesTRow();
       let searchTerm : string = searchInput.value;
       let searchOption : string = searchOptions.value;
+      let result: Floss[];
        if (searchOption === "name" || searchOption === "rgb") {
         const regExp = new RegExp(`${searchTerm.toLowerCase()}`)
-         json.filter((floss : Floss) => floss[searchOption].match(regExp))
+         result = json.filter((floss : Floss) => floss[searchOption].match(regExp))
              .map((floss : Floss) => createTRowsFromSearchRes(floss))
        } else {
-         json.filter((floss : Floss) => floss[searchOption].match(new RegExp(`^${searchTerm.toLowerCase()}`)) )
+         result = json.filter((floss : Floss) => floss[searchOption].match(new RegExp(`^${searchTerm.toLowerCase()}`)) )
              .map((floss: Floss) => createTRowsFromSearchRes(floss))
       }
+      if(result.length === 0) flossTable.innerHTML = `<p class='no-floss-found'>No flosses found by your query.</p>`
     } catch (err) {
        console.log(err);
       return []
