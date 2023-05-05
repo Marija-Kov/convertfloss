@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const url = "https://devfel.github.io/convertfloss/data/flosscolor.json";
-//const url = "../data/flosscolor.json"; //Local Data
+//const url = "https://devfel.github.io/convertfloss/data/flosscolor.json";
+const url = "../data/flossData.json"; //Local Data
 const form = document.querySelector('form');
 const flossTable = document.querySelector(".floss-table");
 const searchBtn = document.querySelector('.search');
@@ -86,6 +86,7 @@ function createTitlesTRow() {
         "Maxi Mouline",
         "Sullivans",
         "J&P Coats",
+        "Ljubica"
     ];
     titles.map((title) => {
         createTitleCell(title);
@@ -109,6 +110,7 @@ function createTRowsFromSearchRes(floss) {
         "maxi",
         "sullivans",
         "coats",
+        "ljubica"
     ];
     cols.map((col) => {
         createTDataCells(col);

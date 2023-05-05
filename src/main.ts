@@ -5,8 +5,8 @@ interface Floss {
   [key: string] : string
 }
   
-  const url = "https://devfel.github.io/convertfloss/data/flosscolor.json";
-  //const url = "../data/flosscolor.json"; //Local Data
+  //const url = "https://devfel.github.io/convertfloss/data/flosscolor.json";
+  const url = "../data/flossData.json"; //Local Data
 
   const form = <HTMLFormElement>document.querySelector('form');
   const flossTable = <HTMLDivElement>document.querySelector(".floss-table");
@@ -82,6 +82,7 @@ interface Floss {
       "Maxi Mouline",
       "Sullivans",
       "J&P Coats",
+      "Ljubica"
     ];
 
     titles.map((title : string) => {
@@ -110,6 +111,7 @@ interface Floss {
       "maxi",
       "sullivans",
       "coats",
+      "ljubica"
     ];
 
     cols.map((col) => {
